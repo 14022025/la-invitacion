@@ -81,6 +81,15 @@ body{
   overflow:hidden;
 }
 
+/* Las franjas oscuras ocupan todo el ancho de la pantalla, pero su texto
+   se alinea con el resto: por eso el fondo va en .header/.footer y el
+   contenido dentro de .franja, que tiene el mismo ancho que .hoja. */
+.franja{
+  width:100%;
+  max-width:800px;
+  margin:0 auto;
+}
+
 /* ── Header ────────────────────────────────────────────────── */
 
 .header{
@@ -92,8 +101,8 @@ body{
   border-bottom-left-radius:14px;
   border-bottom-right-radius:14px;
   overflow:hidden;
-  padding:104px 71px 0;
 }
+.header .franja{ padding:104px 71px 0; }
 
 /* La foto va como capa propia para poder oscurecerla encima sin
    tocar el texto. Recorte y posición copiados del Canva. */
@@ -103,10 +112,11 @@ body{
   inset:0;
   background-image:url("img/hero.jpg");
   background-repeat:no-repeat;
-  /* En proporcion, no en pixeles: 165% del ancho con la posicion 50%/100%
-     da exactamente el mismo encuadre que el Canva a 800px, y sigue
-     cubriendo el marco completo a cualquier ancho mayor. */
-  background-size:165% auto;
+  /* Cover, no un porcentaje fijo: ahora que la franja va de borde a
+     borde, un 165% del ancho en una pantalla de 1900px estiraría la foto
+     a 3100px —casi el doble de sus 1716 reales— y se vería blanda.
+     Cover la ajusta al marco sea cual sea el ancho. */
+  background-size:cover;
   background-position:50% 100%;
 }
 
@@ -494,8 +504,8 @@ body{
   inset:0;
   background-image:url("img/hero.jpg");
   background-repeat:no-repeat;
-  background-size:234.75% auto;
-  background-position:100% 100%;
+  background-size:cover;
+  background-position:50% 78%;
 }
 .footer::after{
   content:"";
@@ -525,25 +535,25 @@ body{
 /* ── Pantallas chicas ──────────────────────────────────────── */
 
 @media (max-width:799px){
-  /* En celular el header crece a lo alto y se sale de la proporcion,
-     asi que ahi el fondo se recorta con cover para no dejar huecos. */
-  .header::before{ background-size:cover; background-position:50% 100%; }
   /* Lo de arriba está calibrado para que en la primera pantalla del
      teléfono entre justo hasta la frase "Una nueva etapa merece
      celebrarse", sin apretarlo. Ya no hay min-height —era lo que
      estiraba el encabezado con aire de sobra— pero el padding es
-     generoso a propósito. */
-  /* Los espacios de esta primera pantalla se miden contra el alto del
-     teléfono, no en píxeles fijos: en uno alto la cosa respira y en uno
-     chico se ajusta, de modo que la frase caiga cerca del borde inferior
-     en ambos. La línea con vh es para navegadores que no entienden svh;
-     la de svh, que sí descuenta la barra del navegador, la pisa después. */
+     generoso a propósito.
+
+     Los espacios se miden contra el alto del teléfono, no en píxeles
+     fijos: en uno alto la cosa respira y en uno chico se ajusta, de modo
+     que la frase caiga cerca del borde inferior en ambos. La línea con
+     vh es para navegadores que no entienden svh; la de svh, que sí
+     descuenta la barra del navegador, la pisa después. */
   .header{
     height:auto;
-    padding:clamp(36px, 9.5vh, 78px) 22px clamp(26px, 7.5vh, 62px);
-    padding:clamp(36px, 9.5svh, 78px) 22px clamp(26px, 7.5svh, 62px);
     border-bottom-left-radius:14px;
     border-bottom-right-radius:14px;
+  }
+  .header .franja{
+    padding:clamp(36px, 9.5vh, 78px) 22px clamp(26px, 7.5vh, 62px);
+    padding:clamp(36px, 9.5svh, 78px) 22px clamp(26px, 7.5svh, 62px);
   }
   .eyebrow{ font-size:9.5px; }
   .titulo{ font-size:35px; margin-top:20px; }
@@ -635,7 +645,7 @@ body{
 /* Teléfonos de pantalla baja: con el aire normal la frase quedaba
    justo en el borde, así que acá se recortan todos los espacios. */
 @media (max-width:799px) and (max-height:640px){
-  .header{
+  .header .franja{
     padding-top:clamp(28px, 6.5vh, 46px);
     padding-top:clamp(28px, 6.5svh, 46px);
     padding-bottom:clamp(20px, 5vh, 36px);
@@ -667,11 +677,12 @@ body{
    ───────────────────────────────────────────────────────────── */
 
 @media (min-width:1100px){
-  .hoja{ max-width:1120px; }
+  .hoja,
+  .franja{ max-width:1240px; }
 
   /* Ojo: no se toca ningun tamano de letra. La pagina se ensancha,
      el texto se queda en las medidas del Canva. */
-  .header{ padding-left:90px; padding-right:90px; }
+  .header .franja{ padding-left:90px; padding-right:90px; }
 
   .datos{
     margin-left:56px;
@@ -704,13 +715,18 @@ body{
 </head>
 <body>
 
-<main class="hoja">
-
-  <header class="header">
+<!-- El encabezado y el pie van fuera de .hoja para poder ocupar el ancho
+     completo de la pantalla. Su texto sí queda dentro de un contenedor
+     centrado del mismo ancho que el resto, para que todo alinee. -->
+<header class="header">
+  <div class="franja">
     <p class="eyebrow">Invitación</p>
     <h1 class="titulo">Taller de flores, cena de rebranding launch</h1>
     <p class="bajada">Te invitamos a compartir una tarde de flores, buena comida y conversaciones para celebrar lo que viene.</p>
-  </header>
+  </div>
+</header>
+
+<main class="hoja">
 
   <section class="datos">
     <div>
@@ -794,13 +810,13 @@ body{
     <button class="otra" type="button" id="otra">Confirmar a otra persona</button>
   </div>
 
-  <footer class="footer">
-    <div class="footer-fila">
-      <span>Botero's Café · 28.08.2026</span>
-    </div>
-  </footer>
-
 </main>
+
+<footer class="footer">
+  <div class="franja footer-fila">
+    <span>Botero's Café · 28.08.2026</span>
+  </div>
+</footer>
 
 <script>
 /* ─────────────────────────────────────────────────────────────
