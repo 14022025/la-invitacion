@@ -295,7 +295,7 @@ body{
   border:1px solid var(--line);
   border-radius:24px;
   cursor:pointer;
-  transition:border-color .15s, box-shadow .15s;
+  transition:border-color .15s, box-shadow .15s, opacity .18s, filter .18s;
 }
 .plato:hover{ border-color:var(--radio); }
 
@@ -357,6 +357,21 @@ body{
 .plato:has(input:checked) .marco::after,
 .plato.elegido .marco::after{ transform:scale(1); }
 .plato:has(input:focus-visible){ box-shadow:0 0 0 3px rgba(255,255,255,.55); }
+
+/* Una vez elegido un plato, los otros dos se van a gris para que la
+   selección se lea de un vistazo. Mientras no haya nada elegido los tres
+   se ven iguales, o parecería que ya hay uno descartado. */
+.lista:has(input:checked) .plato:not(:has(input:checked)),
+.lista.hay-eleccion .plato:not(.elegido){
+  opacity:.5;
+  filter:grayscale(1);
+}
+/* Al pasar por encima recuperan color: siguen siendo elegibles. */
+.lista:has(input:checked) .plato:not(:has(input:checked)):hover,
+.lista.hay-eleccion .plato:not(.elegido):hover{
+  opacity:.85;
+  filter:grayscale(.3);
+}
 
 .plato-nombre{
   display:block;
@@ -713,6 +728,9 @@ document.querySelectorAll('input[name="plato"]').forEach(function (r) {
     document.querySelectorAll(".plato").forEach(function (p) {
       p.classList.toggle("elegido", p.contains(r) && r.checked);
     });
+    // Marca la lista para que los no elegidos se vayan a gris, en
+    // navegadores viejos donde :has() no existe.
+    document.querySelector(".lista").classList.add("hay-eleccion");
   });
 });
 
@@ -769,6 +787,7 @@ form.addEventListener("submit", function (e) {
 document.getElementById("otra").addEventListener("click", function () {
   form.reset();
   document.querySelectorAll(".plato").forEach(function (p) { p.classList.remove("elegido"); });
+  document.querySelector(".lista").classList.remove("hay-eleccion");
   form.hidden = false;
   gracias.hidden = true;
   document.getElementById("nombre").focus();
