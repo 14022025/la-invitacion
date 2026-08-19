@@ -181,6 +181,16 @@ body{
   color:var(--ink);
 }
 
+/* La dirección abre Google Maps. Va subrayada para que se note que se
+   puede tocar, sin cambiar de color y romper el diseño. */
+.mapa{
+  color:inherit;
+  text-decoration:underline;
+  text-decoration-color:var(--radio);
+  text-underline-offset:3px;
+}
+.mapa:hover{ text-decoration-color:var(--olive); }
+
 /* ── Flor + frase ──────────────────────────────────────────── */
 
 /* El isotipo gira igual que en el sitio: 30 segundos por vuelta.
@@ -189,17 +199,24 @@ body{
    marco, que es lo que hace que el giro no se bambolee. Sin overflow
    hidden, o las puntas se cortarían al rotar. */
 .marca{
+  --flor:52px;
   margin:21.5px auto 0;
-  width:52px;
-  height:52px;
+  width:var(--flor);
+  height:var(--flor);
   position:relative;
 }
+/* La imagen se centra con márgenes negativos, no con translate, porque
+   el transform lo ocupa entero la animación de giro. Las proporciones
+   74×75 sobre un marco de 52 son las del recorte del Canva; escalar
+   --flor mueve todo junto. */
 .marca img{
   position:absolute;
-  top:-12px;
-  left:-11px;
-  width:74px;
-  height:75px;
+  top:50%;
+  left:50%;
+  width:calc(var(--flor) * 74 / 52);
+  height:calc(var(--flor) * 75 / 52);
+  margin-left:calc(var(--flor) * -37 / 52);
+  margin-top:calc(var(--flor) * -37.5 / 52);
   transform-origin:50% 50%;
   animation:girar 30s linear infinite;
   will-change:transform;
@@ -500,29 +517,37 @@ body{
   /* En celular el header crece a lo alto y se sale de la proporcion,
      asi que ahi el fondo se recorta con cover para no dejar huecos. */
   .header::before{ background-size:cover; background-position:50% 100%; }
+  /* Todo lo de arriba va comprimido a propósito: la idea es que en la
+     primera pantalla del teléfono entre desde el título hasta la frase
+     "Una nueva etapa merece celebrarse", flor incluida. Sin min-height,
+     que era lo que estiraba el encabezado con aire de sobra. */
   .header{
     height:auto;
-    min-height:380px;
-    padding:72px 28px 56px;
-    border-bottom-left-radius:28px;
-    border-bottom-right-radius:28px;
+    padding:46px 20px 34px;
+    border-bottom-left-radius:26px;
+    border-bottom-right-radius:26px;
   }
-  .titulo{ font-size:38px; margin-top:24px; }
-  .bajada{ font-size:17px; margin-top:18px; }
+  .eyebrow{ font-size:9.5px; }
+  .titulo{ font-size:33px; margin-top:18px; }
+  .bajada{ font-size:16px; margin-top:14px; line-height:1.5; }
 
   /* En teléfono la página usa el ancho completo: los filetes y la
      tarjeta del formulario van de borde a borde, sin franjas blancas
      a los lados. Lo que era margen exterior pasa a padding interno. */
+  /* Fecha y lugar van lado a lado, no apilados: apilados se comían
+     unos 100px de la primera pantalla. */
   .datos{
-    margin:28px 0 0;
-    padding:20px 20px 26px;
-    grid-template-columns:1fr;
-    gap:24px 0;
+    margin:18px 0 0;
+    padding:16px 20px 18px;
+    grid-template-columns:1fr 1fr;
+    gap:0 18px;
   }
-  .dato-fuerte{ font-size:19px; margin-top:12px; }
-  .dato-suave{ font-size:18px; }
+  .dato-label{ font-size:10.5px; }
+  .dato-fuerte{ font-size:17px; margin-top:8px; }
+  .dato-suave{ font-size:16px; margin-top:6px; }
 
-  .frase{ font-size:24px; padding:0 20px; }
+  .marca{ --flor:46px; margin-top:16px; }
+  .frase{ font-size:22px; margin-top:10px; padding:0 20px; }
 
   .tarjeta{ margin:30px 0 0; padding:32px 16px 36px; border-radius:0; }
   .plato{ border-radius:18px; }
@@ -554,10 +579,16 @@ body{
 }
 
 @media (max-width:400px){
-  .titulo{ font-size:32px; }
-  .frase{ font-size:21px; }
+  .titulo{ font-size:30px; }
+  .frase{ font-size:20px; }
   .footer-fila{ flex-direction:column; justify-content:center; gap:6px; }
   .footer{ height:auto; padding:18px 0; }
+}
+
+/* En pantallas muy angostas las dos columnas de fecha y lugar quedan
+   demasiado apretadas, así que ahí sí se apilan. */
+@media (max-width:339px){
+  .datos{ grid-template-columns:1fr; gap:16px 0; }
 }
 
 /* ── Pantallas grandes ─────────────────────────────────────────
@@ -622,7 +653,9 @@ body{
     <div>
       <p class="dato-label">Lugar</p>
       <p class="dato-fuerte">Botero's Café</p>
-      <p class="dato-suave">Cra. 51B #79-296 Loc 4</p>
+      <p class="dato-suave"><a class="mapa"
+        href="https://www.google.com/maps/search/?api=1&amp;query=Botero%27s%20Caf%C3%A9%2C%20Cra.%2051B%20%2379-296%2C%20Barranquilla%2C%20Colombia"
+        target="_blank" rel="noopener">Cra. 51B #79-296 Loc 4</a></p>
     </div>
   </section>
 
