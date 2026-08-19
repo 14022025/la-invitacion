@@ -161,6 +161,19 @@ body{
   color:#fff;
 }
 
+/* El dress code, en el mismo tono de etiqueta que "FECHA Y HORA" o
+   "LUGAR": mono, versalitas y bien espaciado. Va algo más apagado que
+   el resto del encabezado porque es un dato secundario, no un titular. */
+.dress{
+  margin:24px 0 0;
+  font-family:var(--mono);
+  font-weight:400;
+  font-size:10.5px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.72);
+}
+
 /* ── Datos del evento ──────────────────────────────────────── */
 
 .datos{
@@ -558,6 +571,7 @@ body{
   .eyebrow{ font-size:9.5px; }
   .titulo{ font-size:35px; margin-top:20px; }
   .bajada{ font-size:16px; margin-top:16px; line-height:1.55; }
+  .dress{ font-size:9.5px; margin-top:18px; }
 
   /* En teléfono la página usa el ancho completo: los filetes y la
      tarjeta del formulario van de borde a borde, sin franjas blancas
@@ -723,6 +737,7 @@ body{
     <p class="eyebrow">Invitación</p>
     <h1 class="titulo">Taller de flores, cena de rebranding launch</h1>
     <p class="bajada">Te invitamos a compartir una tarde de flores, buena comida y conversaciones para celebrar lo que viene.</p>
+    <p class="dress">Dress code · Colores pasteles</p>
   </div>
 </header>
 
