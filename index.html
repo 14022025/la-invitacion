@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Taller de flores, cena de rebranding launch · Thallo Digital</title>
+<title>Taller de flores, cena de rebranding launch</title>
 <!-- Fuera de los buscadores. El evento es sorpresa: la página no se
      anuncia en ningún lado y sólo llega a quien reciba el enlace. Va con
      noindex en la propia página y no con un Disallow en robots.txt,
@@ -12,7 +12,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="googlebot" content="noindex, nofollow">
 
-<meta name="description" content="Te invitamos a compartir una tarde de flores, buena comida y conversaciones. Viernes 28 de agosto, 5:00 pm en Botero's Café.">
+<meta name="description" content="Te invitamos a compartir una tarde de flores, buena comida y conversaciones. Viernes 28 de agosto, 5:30 pm en Botero's Café.">
 
 <!-- Vista previa al compartir por WhatsApp.
      og:image y og:url tienen que ser URL absolutas: con ruta relativa
@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://saravargasr2.github.io/la-invitacion/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Taller de flores, cena de rebranding launch">
-<meta property="og:description" content="Thallo Digital · Viernes 28 de agosto, 5:00 pm · Botero's Café">
+<meta property="og:description" content="Viernes 28 de agosto, 5:30 pm · Botero's Café">
 <meta property="og:image" content="https://saravargasr2.github.io/la-invitacion/img/preview.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -34,11 +34,10 @@
 
 <style>
 /* ─────────────────────────────────────────────────────────────
-   Invitación Thallo Digital
-   Réplica en HTML del diseño de Canva "Invitación evento Thallo
-   Digital" (lienzo 800 × 1782). Los valores en px de abajo son
-   las medidas reales del lienzo, por eso a 800px de ancho la
-   página coincide con el diseño original.
+   Invitación
+   Réplica en HTML del diseño de Canva del evento (lienzo 800 × 1782).
+   Los valores en px de abajo son las medidas reales del lienzo, por eso
+   a 800px de ancho la página coincide con el diseño original.
    ───────────────────────────────────────────────────────────── */
 
 :root{
@@ -203,8 +202,7 @@ body{
 
 /* ── Flor + frase ──────────────────────────────────────────── */
 
-/* El isotipo gira a 18 segundos por vuelta — algo más rápido que los 30
-   que usa SpinFlower en el sitio, por pedido.
+/* El isotipo gira a 18 segundos por vuelta.
    La imagen queda descentrada respecto al marco a propósito — así es
    como está recortada en el Canva — pero su centro coincide con el del
    marco, que es lo que hace que el giro no se bambolee. Sin overflow
@@ -506,6 +504,8 @@ body{
   background:rgba(35,42,20,.904);
 }
 
+/* Antes eran dos columnas, con la marca a la izquierda. Ahora que esa
+   se fue, la línea que queda va centrada. */
 .footer-fila{
   position:relative;
   z-index:1;
@@ -513,7 +513,7 @@ body{
   padding:0 40px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:center;
   font-family:var(--mono);
   font-weight:400;
   font-size:10px;
@@ -707,7 +707,7 @@ body{
 <main class="hoja">
 
   <header class="header">
-    <p class="eyebrow">Thallo Digital · Invitación</p>
+    <p class="eyebrow">Invitación</p>
     <h1 class="titulo">Taller de flores, cena de rebranding launch</h1>
     <p class="bajada">Te invitamos a compartir una tarde de flores, buena comida y conversaciones para celebrar lo que viene.</p>
   </header>
@@ -716,7 +716,7 @@ body{
     <div>
       <p class="dato-label">Fecha y hora</p>
       <p class="dato-fuerte">Viernes 28 de&nbsp;Agosto</p>
-      <p class="dato-suave">5:00 pm</p>
+      <p class="dato-suave">5:30 pm</p>
     </div>
     <div>
       <p class="dato-label">Lugar</p>
@@ -796,7 +796,6 @@ body{
 
   <footer class="footer">
     <div class="footer-fila">
-      <span>Thallo Digital</span>
       <span>Botero's Café · 28.08.2026</span>
     </div>
   </footer>
@@ -864,8 +863,8 @@ form.addEventListener("submit", function (e) {
 
   const mensaje =
     "¡Hola Cami! Soy " + nombre + " 🌿\n\n" +
-    "Confirmo mi asistencia al taller de flores y cena de rebranding de Thallo Digital.\n" +
-    "Viernes 28 de agosto, 5:00 pm — Botero's Café.\n\n" +
+    "Confirmo mi asistencia al taller de flores y a la cena.\n" +
+    "Viernes 28 de agosto, 5:30 pm — Botero's Café.\n\n" +
     "Mi plato fuerte: " + plato.value + ".\n\n" +
     "¡Nos vemos allá!";
 
