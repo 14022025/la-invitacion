@@ -80,8 +80,10 @@ body{
   position:relative;
   height:456px;
   background-color:var(--dark);
-  border-bottom-left-radius:46px;
-  border-bottom-right-radius:46px;
+  /* Mismo redondeo que el pie de página: 14px. El Canva traía 46px,
+     pero se pidió menos curva y que las dos esquinas coincidieran. */
+  border-bottom-left-radius:14px;
+  border-bottom-right-radius:14px;
   overflow:hidden;
   padding:104px 71px 0;
 }
@@ -193,7 +195,8 @@ body{
 
 /* ── Flor + frase ──────────────────────────────────────────── */
 
-/* El isotipo gira igual que en el sitio: 30 segundos por vuelta.
+/* El isotipo gira a 18 segundos por vuelta — algo más rápido que los 30
+   que usa SpinFlower en el sitio, por pedido.
    La imagen queda descentrada respecto al marco a propósito — así es
    como está recortada en el Canva — pero su centro coincide con el del
    marco, que es lo que hace que el giro no se bambolee. Sin overflow
@@ -218,7 +221,7 @@ body{
   margin-left:calc(var(--flor) * -37 / 52);
   margin-top:calc(var(--flor) * -37.5 / 52);
   transform-origin:50% 50%;
-  animation:girar 30s linear infinite;
+  animation:girar 18s linear infinite;
   will-change:transform;
 }
 
@@ -531,8 +534,8 @@ body{
     height:auto;
     padding:clamp(36px, 9.5vh, 78px) 22px clamp(26px, 7.5vh, 62px);
     padding:clamp(36px, 9.5svh, 78px) 22px clamp(26px, 7.5svh, 62px);
-    border-bottom-left-radius:26px;
-    border-bottom-right-radius:26px;
+    border-bottom-left-radius:14px;
+    border-bottom-right-radius:14px;
   }
   .eyebrow{ font-size:9.5px; }
   .titulo{ font-size:35px; margin-top:20px; }
